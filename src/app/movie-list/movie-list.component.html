@@ -1,0 +1,10 @@
+<h2>Elenco dei film</h2>
+
+
+
+
+<ul>
+  <li *ngFor="let movie of movies" (click)="showDetails(movie.id)">
+    {{ movie.name }}
+  </li>
+</ul>

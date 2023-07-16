@@ -1,0 +1,13 @@
+
+<h2>Dettagli dello show</h2>
+<p>Nome dello show: {{ show?.name }}</p>
+<p>Genere:
+  <span *ngFor="let genre of show?.genres">{{ genre }}</span>
+</p>
+<p>Data di inizio: {{ show?.premiered }}</p>
+<p>Status: {{ show?.status }}</p>
+<p>Durata: {{ show?.runtime }} minuti</p>
+<p>Rating medio: {{ show?.rating?.average }}</p>
+<p>Sito ufficiale: <a href="{{ show?.officialSite }}">{{ show?.officialSite }}</a></p>
+<p>Sommario: <span [innerHTML]="show?.summary"></span></p>
+
