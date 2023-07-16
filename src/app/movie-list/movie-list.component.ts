@@ -14,10 +14,15 @@ interface Movie {
 })
 export class MovieListComponent implements OnInit {
   movies!: Movie[];
+  searchQuery!: string;
 
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
+    this.loadMovies();
+  }
+  
+  loadMovies(): void {
     this.http.get<any[]>('https://api.tvmaze.com/shows')
       .subscribe((response) => {
         this.movies = response.map((movie) => ({
@@ -26,10 +31,25 @@ export class MovieListComponent implements OnInit {
         }));
       });
   }
+  
 
   showDetails(movieId: number) {
     this.router.navigate(['/show', movieId]);
     
+  }
+
+  search(): void {
+    if (this.searchQuery) {
+      this.http.get<any[]>(`https://api.tvmaze.com/search/shows?q=${this.searchQuery}`)
+        .subscribe((response) => {
+          this.movies = response.map((result) => ({
+            id: result.show.id,
+            name: result.show.name
+          }));
+        });
+    } else {
+      this.loadMovies();
+    }
   }
 
 
